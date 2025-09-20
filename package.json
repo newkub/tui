@@ -1,0 +1,21 @@
+{
+  "name": "tui-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "bun@1.2.22",
+  "workspaces": [
+    "config",
+    "packages",
+    "examples"
+  ],
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "update:deps": "bunx taze -r -w"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.4",
+    "turbo": "^2.5.6"
+  }
+}

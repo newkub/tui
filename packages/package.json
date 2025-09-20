@@ -1,0 +1,31 @@
+{
+	"name": "tui",
+	"version": "1.0.0",
+	"type": "module",
+	"packageManager": "bun@1.2.22",
+	"private": true,
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"scripts": {
+		"build": "tsdown",
+		"dev": "bun --watch src/index.ts",
+		"lint": "biome check --write",
+		"format": "biome format --write"
+	},
+	"dependencies": {
+		"picocolors": "^1.1.1",
+		"config": "workspace:*"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.2.4",
+		"lefthook": "^1.13.1",
+		"tsdown": "^0.15.3",
+		"typescript": "^5.9.2"
+	}
+}
