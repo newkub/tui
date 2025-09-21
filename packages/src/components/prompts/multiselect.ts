@@ -22,7 +22,7 @@ export function multiselect<T>(
 			clearLine();
 
 			const message = formatMessage(options.message);
-			write(message + "\n");
+			write(`${message}\n`);
 
 			for (let i = 0; i < options.options.length; i++) {
 				const option = options.options[i];
@@ -38,7 +38,7 @@ export function multiselect<T>(
 				write(formattedOption);
 
 				if (option.hint && isSelected) {
-					write(" " + colors.dim(option.hint));
+					write(` ${colors.dim(option.hint)}`);
 				}
 
 				if (i < options.options.length - 1) {
@@ -97,7 +97,7 @@ export function multiselect<T>(
 				}
 			}
 
-			writeLine(formatMessage(options.message) + " " + colors.dim("cancelled"));
+			writeLine(`${formatMessage(options.message)} ${colors.dim("cancelled")}`);
 			resolve(CANCEL_SYMBOL);
 		};
 

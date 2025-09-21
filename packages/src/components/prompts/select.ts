@@ -30,7 +30,7 @@ export function select<T>(options: SelectOptions<T>): Promise<PromptResult<T>> {
 			clearLine();
 
 			const message = formatMessage(options.message);
-			write(message + "\n");
+			write(`${message}\n`);
 
 			for (let i = 0; i < options.options.length; i++) {
 				const option = options.options[i];

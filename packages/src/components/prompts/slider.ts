@@ -6,7 +6,6 @@ import {
 	hideCursor,
 	InputHandler,
 	showCursor,
-	write,
 	writeLine,
 } from "../core/input";
 import { clamp } from "../core/utils";

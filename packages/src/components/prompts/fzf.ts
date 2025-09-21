@@ -133,7 +133,7 @@ export function fzf<T>(options: FzfOptions<T>): Promise<PromptResult<T>> {
 		hideCursor();
 		render();
 
-		const removeKeyListener = input.onKey((key, data: any) => {
+		const removeKeyListener = input.onKey((key, _data: any) => {
 			switch (key) {
 				case "ctrl+c":
 					cancel();
