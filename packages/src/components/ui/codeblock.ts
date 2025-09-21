@@ -48,16 +48,21 @@ async function renderCodeBlock(
 	showLineNumbers: boolean = false,
 ): Promise<void> {
 	const lines = code.split("\n");
-	const maxWidth =
-		Math.max(
-			...lines.map((line) => line.length),
-			filename ? filename.length + 4 : 0,
-			20,
-		) + 4;
+	
+	// Calculate base content width (without borders and line numbers)
+	const baseContentWidth = Math.max(
+		...lines.map(line => line.length),
+		filename ? filename.length + 4 : 0,
+		language ? language.length + 6 : 0, // For language label
+		30 // Minimum width
+	);
+	
+	// Total width includes borders (2) + padding (2) + line numbers (6 if enabled)
+	const totalWidth = baseContentWidth + 2 + (showLineNumbers ? 6 : 0);
 
 	// Top border with filename
 	if (filename) {
-		const padding = Math.max(0, maxWidth - filename.length - 4);
+		const padding = Math.max(0, totalWidth - filename.length - 4);
 		const leftPadding = Math.floor(padding / 2);
 		const rightPadding = padding - leftPadding;
 
@@ -67,20 +72,20 @@ async function renderCodeBlock(
 			),
 		);
 	} else {
-		writeLine(colors.primary(`┌${"─".repeat(maxWidth)}┐`));
+		writeLine(colors.primary(`┌${"─".repeat(totalWidth)}┐`));
 	}
 
 	// Language indicator (if provided)
 	if (language && language !== "text") {
 		const langLabel = ` ${getLanguageIcon(language)} ${language.toUpperCase()} `;
-		const langPadding = Math.max(0, maxWidth - langLabel.length);
+		const langPadding = Math.max(0, totalWidth - langLabel.length);
 		writeLine(
 			colors.primary("│") +
 				colors.info(langLabel) +
 				" ".repeat(langPadding) +
 				colors.primary("│"),
 		);
-		writeLine(colors.primary(`├${"─".repeat(maxWidth)}┤`));
+		writeLine(colors.primary(`├${"─".repeat(totalWidth)}┤`));
 	}
 
 	// Code content with syntax highlighting
@@ -96,58 +101,48 @@ async function renderCodeBlock(
 
 			// Split highlighted code into lines and add borders
 			const highlightedLines = highlighted.split("\n");
+			const originalLines = code.split("\n");
+
 			for (let i = 0; i < highlightedLines.length; i++) {
-				const line = highlightedLines[i];
+				const highlightedLine = highlightedLines[i];
+				const originalLine = originalLines[i] || "";
 				const lineNumber = showLineNumbers
 					? colors.dim(`${(i + 1).toString().padStart(3)} │ `)
 					: "";
-				const paddedLine =
-					line +
-					" ".repeat(
-						Math.max(
-							0,
-							maxWidth - getVisualLength(line) - (showLineNumbers ? 6 : 0),
-						),
-					);
-				writeLine(
-					colors.primary("│ ") + lineNumber + paddedLine + colors.primary("│"),
-				);
+
+				// Calculate padding based on original line length, not highlighted length
+				const contentWidth = baseContentWidth;
+				const padding = Math.max(0, contentWidth - originalLine.length);
+				const paddedLine = highlightedLine + " ".repeat(padding);
+
+				writeLine(colors.primary("│") + (showLineNumbers ? lineNumber : " ") + paddedLine + colors.primary("│"));
 			}
 		} catch (error) {
 			// Fallback to simple code block
-			renderSimpleCodeBlock(lines, maxWidth, showLineNumbers);
+			renderSimpleCodeBlock(lines, totalWidth, showLineNumbers, baseContentWidth);
 		}
 	} else {
 		// Simple code block without highlighting
-		renderSimpleCodeBlock(lines, maxWidth, showLineNumbers);
+		renderSimpleCodeBlock(lines, totalWidth, showLineNumbers, baseContentWidth);
 	}
 
 	// Bottom border
-	writeLine(colors.primary(`└${"─".repeat(maxWidth)}┘`));
+	writeLine(colors.primary(`└${"─".repeat(totalWidth)}┘`));
 	writeLine(); // Empty line after code block
 }
 
 function renderSimpleCodeBlock(
 	lines: string[],
-	maxWidth: number,
+	totalWidth: number,
 	showLineNumbers: boolean,
+	baseContentWidth: number,
 ): void {
 	for (let i = 0; i < lines.length; i++) {
 		const line = lines[i];
-		const lineNumber = showLineNumbers
-			? colors.dim(`${(i + 1).toString().padStart(3)} │ `)
-			: "";
-		const paddedLine =
-			line +
-			" ".repeat(
-				Math.max(0, maxWidth - line.length - (showLineNumbers ? 6 : 0)),
-			);
-		writeLine(
-			colors.primary("│ ") +
-				lineNumber +
-				colors.inverse(paddedLine) +
-				colors.primary("│"),
-		);
+		const lineNumber = showLineNumbers ? colors.dim(`${(i + 1).toString().padStart(3)} │ `) : "";
+		const padding = Math.max(0, baseContentWidth - line.length);
+		const paddedLine = colors.inverse(line) + " ".repeat(padding);
+		writeLine(colors.primary("│") + (showLineNumbers ? lineNumber : " ") + paddedLine + colors.primary("│"));
 	}
 }
 
@@ -203,5 +198,5 @@ async function canHighlight(language: string): Promise<boolean> {
 
 function getVisualLength(text: string): number {
 	// Remove ANSI escape codes for accurate length calculation
-	return text.replace(/\u001b\[[0-9;]*m/g, "").length;
+	return text.replace(/\x1b\[[0-9;]*m/g, "").length;
 }
