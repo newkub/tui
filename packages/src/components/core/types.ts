@@ -88,3 +88,10 @@ export interface LogOptions {
 	message: string;
 	symbol?: string;
 }
+
+export interface FzfOptions<T = string> {
+	message: string;
+	options: SelectOption<T>[];
+	initialValue?: T;
+	placeholder?: string;
+}
