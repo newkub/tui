@@ -1,5 +1,5 @@
-import { CANCEL_SYMBOL } from "../../types.js";
-import { colors, formatError, formatMessage } from "../core/colors.js";
+import { CANCEL_SYMBOL } from "../../types";
+import { colors, formatError, formatMessage } from "../core/colors";
 import {
 	clearLine,
 	hideCursor,
@@ -7,8 +7,9 @@ import {
 	showCursor,
 	write,
 	writeLine,
-} from "../core/input.js";
-import type { NumberOptions, PromptResult } from "./types.js";
+} from "../core/input";
+import type { PromptResult } from "../../types";
+import type { NumberOptions } from "../core/types";
 
 export function number(options: NumberOptions): Promise<PromptResult<number>> {
 	return new Promise((resolve) => {

@@ -1,5 +1,5 @@
-import { CANCEL_SYMBOL } from "../../types.js";
-import { colors, formatMessage } from "../core/colors.js";
+import { CANCEL_SYMBOL } from "../../types";
+import { colors, formatMessage } from "../core/colors";
 import {
 	clearLine,
 	hideCursor,
@@ -7,8 +7,9 @@ import {
 	showCursor,
 	write,
 	writeLine,
-} from "../core/input.js";
-import type { PromptResult, ToggleOptions } from "./types.js";
+} from "../core/input";
+import type { PromptResult } from "../../types";
+import type { ToggleOptions } from "../core/types";
 
 export function toggle(options: ToggleOptions): Promise<PromptResult<boolean>> {
 	return new Promise((resolve) => {

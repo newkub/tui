@@ -1,14 +1,9 @@
 import { formatError, formatMessage } from "../core/colors";
+import type { PasswordOptions } from "../core/types";
+import { CANCEL_SYMBOL } from "../../types";
+import type { PromptResult } from "../../types";
 
-export interface PasswordOptions {
-	message: string;
-	placeholder?: string;
-	mask?: string;
-	validate?: (value: string) => string | boolean;
-	initialValue?: string;
-}
-
-export async function password(options: PasswordOptions): Promise<string> {
+export async function password(options: PasswordOptions): Promise<PromptResult<string>> {
 	const { message, placeholder, mask = "*", validate, initialValue } = options;
 
 	console.log(formatMessage(message));
@@ -47,12 +42,13 @@ export async function password(options: PasswordOptions): Promise<string> {
 							typeof validation === "string" ? validation : "Invalid input",
 						),
 					);
-					resolve(password(options));
+					// Recursively call password function for retry
+					password(options).then(resolve).catch(reject);
 				}
 			} else if (keyStr === "\x03" || keyStr === "\x1b") {
 				// Ctrl+C or Escape
 				cleanup();
-				reject(new Error("User cancelled"));
+				resolve(CANCEL_SYMBOL);
 			} else if (keyStr === "\x7f" || key[0] === 8) {
 				// Backspace
 				if (cursor > 0) {
