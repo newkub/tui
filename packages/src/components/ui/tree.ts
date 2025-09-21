@@ -73,7 +73,7 @@ function getNodeIcon(node: TreeNode, showIcons: boolean): string {
 	if (!showIcons) return "";
 
 	if (node.meta?.icon) {
-		return node.meta.icon + " ";
+		return `${node.meta.icon} `;
 	}
 
 	if (node.type === "folder") {
