@@ -1,4 +1,4 @@
-import { colors } from "../utils/colors.js";
+import { colors } from "../core/colors.js";
 
 export type LogType = "info" | "warn" | "error" | "success";
 

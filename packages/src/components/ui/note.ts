@@ -1,4 +1,4 @@
-import { colors } from "../utils/colors";
+import { colors } from "../core/colors";
 
 export interface NoteOptions {
 	title: string;

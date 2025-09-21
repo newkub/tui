@@ -1,4 +1,4 @@
-import type { ProgressOptions } from "../../types.js";
+import type { ProgressOptions } from "../core/types";
 import { colors } from "../core/colors";
 import { writeLine } from "../core/input";
 import { clamp } from "../core/utils";

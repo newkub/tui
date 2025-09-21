@@ -1,4 +1,4 @@
-import type { TableOptions } from "../../types.js";
+import type { TableOptions } from "../core/types";
 import { colors } from "../core/colors";
 import { writeLine } from "../core/input";
 import { padEnd, truncate } from "../core/utils";

@@ -1,6 +1,6 @@
-import type { SpinnerOptions } from "../../../prompt/src/types.js";
-import { colors } from "../../../tui/src/components/colors.js";
-import { writeLine } from "../../../tui/src/components/input.js";
+import type { SpinnerOptions } from "../../types";
+import { colors } from "../core/colors";
+import { writeLine } from "../core/input";
 
 export interface Spinner {
 	start: (message?: string) => void;
