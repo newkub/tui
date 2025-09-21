@@ -14,13 +14,14 @@
 	},
 	"scripts": {
 		"build": "tsdown",
-		"dev": "bun --watch src/examples.ts",
+		"dev": "bun --watch src/showcase.ts",
 		"lint": "biome check --write",
 		"format": "biome format --write"
 	},
 	"dependencies": {
-		"picocolors": "^1.1.1",
-		"config": "workspace:*"
+		"@shikijs/cli": "^3.13.0",
+		"config": "workspace:*",
+		"picocolors": "^1.1.1"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.2.4",
