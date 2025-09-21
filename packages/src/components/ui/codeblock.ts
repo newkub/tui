@@ -26,34 +26,46 @@ export async function codeblock(options: CodeBlockOptions): Promise<void> {
 		filename,
 		theme = "vitesse-dark",
 		enableSyntaxHighlighting = true,
-		showLineNumbers = false
+		showLineNumbers = false,
 	} = options;
 
-	await renderCodeBlock(code, language, filename, theme, enableSyntaxHighlighting, showLineNumbers);
+	await renderCodeBlock(
+		code,
+		language,
+		filename,
+		theme,
+		enableSyntaxHighlighting,
+		showLineNumbers,
+	);
 }
 
 async function renderCodeBlock(
-	code: string, 
-	language: string, 
-	filename?: string, 
+	code: string,
+	language: string,
+	filename?: string,
 	theme: string = "vitesse-dark",
 	enableSyntaxHighlighting: boolean = true,
-	showLineNumbers: boolean = false
+	showLineNumbers: boolean = false,
 ): Promise<void> {
-	const lines = code.split('\n');
-	const maxWidth = Math.max(
-		...lines.map(line => line.length),
-		filename ? filename.length + 4 : 0,
-		20
-	) + 4;
+	const lines = code.split("\n");
+	const maxWidth =
+		Math.max(
+			...lines.map((line) => line.length),
+			filename ? filename.length + 4 : 0,
+			20,
+		) + 4;
 
 	// Top border with filename
 	if (filename) {
 		const padding = Math.max(0, maxWidth - filename.length - 4);
 		const leftPadding = Math.floor(padding / 2);
 		const rightPadding = padding - leftPadding;
-		
-		writeLine(colors.primary(`┌${"─".repeat(leftPadding)} 📄 ${filename} ${"─".repeat(rightPadding)}┐`));
+
+		writeLine(
+			colors.primary(
+				`┌${"─".repeat(leftPadding)} 📄 ${filename} ${"─".repeat(rightPadding)}┐`,
+			),
+		);
 	} else {
 		writeLine(colors.primary(`┌${"─".repeat(maxWidth)}┐`));
 	}
@@ -62,24 +74,44 @@ async function renderCodeBlock(
 	if (language && language !== "text") {
 		const langLabel = ` ${getLanguageIcon(language)} ${language.toUpperCase()} `;
 		const langPadding = Math.max(0, maxWidth - langLabel.length);
-		writeLine(colors.primary("│") + colors.info(langLabel) + " ".repeat(langPadding) + colors.primary("│"));
+		writeLine(
+			colors.primary("│") +
+				colors.info(langLabel) +
+				" ".repeat(langPadding) +
+				colors.primary("│"),
+		);
 		writeLine(colors.primary(`├${"─".repeat(maxWidth)}┤`));
 	}
 
 	// Code content with syntax highlighting
-	if (enableSyntaxHighlighting && await canHighlight(language)) {
+	if (enableSyntaxHighlighting && (await canHighlight(language))) {
 		try {
-			const { codeToANSI } = await import('@shikijs/cli');
+			const { codeToANSI } = await import("@shikijs/cli");
 			const mappedLanguage = mapLanguage(language);
-			const highlighted = await codeToANSI(code, mappedLanguage as any, theme as any);
-			
+			const highlighted = await codeToANSI(
+				code,
+				mappedLanguage as any,
+				theme as any,
+			);
+
 			// Split highlighted code into lines and add borders
-			const highlightedLines = highlighted.split('\n');
+			const highlightedLines = highlighted.split("\n");
 			for (let i = 0; i < highlightedLines.length; i++) {
 				const line = highlightedLines[i];
-				const lineNumber = showLineNumbers ? colors.dim(`${(i + 1).toString().padStart(3)} │ `) : "";
-				const paddedLine = line + " ".repeat(Math.max(0, maxWidth - getVisualLength(line) - (showLineNumbers ? 6 : 0)));
-				writeLine(colors.primary("│ ") + lineNumber + paddedLine + colors.primary("│"));
+				const lineNumber = showLineNumbers
+					? colors.dim(`${(i + 1).toString().padStart(3)} │ `)
+					: "";
+				const paddedLine =
+					line +
+					" ".repeat(
+						Math.max(
+							0,
+							maxWidth - getVisualLength(line) - (showLineNumbers ? 6 : 0),
+						),
+					);
+				writeLine(
+					colors.primary("│ ") + lineNumber + paddedLine + colors.primary("│"),
+				);
 			}
 		} catch (error) {
 			// Fallback to simple code block
@@ -95,19 +127,34 @@ async function renderCodeBlock(
 	writeLine(); // Empty line after code block
 }
 
-function renderSimpleCodeBlock(lines: string[], maxWidth: number, showLineNumbers: boolean): void {
+function renderSimpleCodeBlock(
+	lines: string[],
+	maxWidth: number,
+	showLineNumbers: boolean,
+): void {
 	for (let i = 0; i < lines.length; i++) {
 		const line = lines[i];
-		const lineNumber = showLineNumbers ? colors.dim(`${(i + 1).toString().padStart(3)} │ `) : "";
-		const paddedLine = line + " ".repeat(Math.max(0, maxWidth - line.length - (showLineNumbers ? 6 : 0)));
-		writeLine(colors.primary("│ ") + lineNumber + colors.inverse(paddedLine) + colors.primary("│"));
+		const lineNumber = showLineNumbers
+			? colors.dim(`${(i + 1).toString().padStart(3)} │ `)
+			: "";
+		const paddedLine =
+			line +
+			" ".repeat(
+				Math.max(0, maxWidth - line.length - (showLineNumbers ? 6 : 0)),
+			);
+		writeLine(
+			colors.primary("│ ") +
+				lineNumber +
+				colors.inverse(paddedLine) +
+				colors.primary("│"),
+		);
 	}
 }
 
 function getLanguageIcon(language: string): string {
 	const icons: Record<string, string> = {
 		javascript: "🟨",
-		typescript: "🔷", 
+		typescript: "🔷",
 		python: "🐍",
 		bash: "🐚",
 		json: "📄",
@@ -118,27 +165,37 @@ function getLanguageIcon(language: string): string {
 		sql: "💾",
 		docker: "🐳",
 		rust: "🦀",
-		go: "🐹"
+		go: "🐹",
 	};
 	return icons[language.toLowerCase()] || "📄";
 }
 
 function mapLanguage(language: string): string {
 	const languageMap: Record<string, string> = {
-		'js': 'javascript',
-		'ts': 'typescript', 
-		'py': 'python',
-		'sh': 'bash',
-		'yml': 'yaml',
-		'md': 'markdown'
+		js: "javascript",
+		ts: "typescript",
+		py: "python",
+		sh: "bash",
+		yml: "yaml",
+		md: "markdown",
 	};
 	return languageMap[language.toLowerCase()] || language;
 }
 
 async function canHighlight(language: string): Promise<boolean> {
 	const supportedLanguages = [
-		'javascript', 'typescript', 'python', 'bash', 'yaml', 
-		'json', 'html', 'css', 'markdown', 'sql', 'rust', 'go'
+		"javascript",
+		"typescript",
+		"python",
+		"bash",
+		"yaml",
+		"json",
+		"html",
+		"css",
+		"markdown",
+		"sql",
+		"rust",
+		"go",
 	];
 	const mapped = mapLanguage(language);
 	return supportedLanguages.includes(mapped.toLowerCase());
@@ -146,5 +203,5 @@ async function canHighlight(language: string): Promise<boolean> {
 
 function getVisualLength(text: string): number {
 	// Remove ANSI escape codes for accurate length calculation
-	return text.replace(/\u001b\[[0-9;]*m/g, '').length;
+	return text.replace(/\u001b\[[0-9;]*m/g, "").length;
 }

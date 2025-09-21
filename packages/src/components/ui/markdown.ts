@@ -13,16 +13,21 @@ export interface MarkdownOptions {
 }
 
 export async function markdown(options: MarkdownOptions): Promise<void> {
-	const { 
-		content, 
-		enableSyntaxHighlighting = true, 
+	const {
+		content,
+		enableSyntaxHighlighting = true,
 		theme = "vitesse-dark",
-		showLineNumbers = false
+		showLineNumbers = false,
 	} = options;
 
 	// Parse markdown content
-	await parseMarkdown(content, enableSyntaxHighlighting, theme, showLineNumbers);
-	
+	await parseMarkdown(
+		content,
+		enableSyntaxHighlighting,
+		theme,
+		showLineNumbers,
+	);
+
 	writeLine(); // Empty line at the end
 }
 
@@ -30,7 +35,7 @@ async function parseMarkdown(
 	content: string,
 	enableSyntaxHighlighting: boolean,
 	theme: string,
-	showLineNumbers: boolean
+	showLineNumbers: boolean,
 ): Promise<void> {
 	const lines = content.split("\n");
 	let inCodeBlock = false;
@@ -42,7 +47,7 @@ async function parseMarkdown(
 
 		// Handle code blocks
 		if (line.startsWith("```")) {
-			if (inCodeBlock) { 
+			if (inCodeBlock) {
 				// End of code block - render using codeblock component
 				if (codeBlockContent.length > 0) {
 					await codeblock({
@@ -50,7 +55,7 @@ async function parseMarkdown(
 						language: codeBlockLanguage || "text",
 						enableSyntaxHighlighting,
 						theme,
-						showLineNumbers
+						showLineNumbers,
 					});
 				}
 				inCodeBlock = false;
@@ -98,4 +103,3 @@ async function parseMarkdown(
 		writeLine(formattedLine);
 	}
 }
-

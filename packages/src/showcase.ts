@@ -4,6 +4,7 @@ import {
 	banner,
 	chatDemo,
 	clamp,
+	codeblock,
 	// Core utilities
 	colors,
 	divider,
@@ -29,7 +30,6 @@ import {
 	toast,
 	tree,
 	warn,
-	codeblock,
 } from "./index";
 
 async function runComprehensiveShowcase() {

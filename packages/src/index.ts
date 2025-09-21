@@ -52,13 +52,13 @@ export { text } from "./components/prompts/text";
 export { toggle } from "./components/prompts/toggle";
 export { banner } from "./components/ui/banner";
 export { Chat, chat, chatDemo } from "./components/ui/chat";
+export { codeblock } from "./components/ui/codeblock";
 // UI Components
 export { intro, outro } from "./components/ui/intro";
 export { divider, line, section } from "./components/ui/line";
 export { error, info, log as uiLog, success, warn } from "./components/ui/log";
-export { note } from "./components/ui/note";
 export { markdown } from "./components/ui/markdown";
-export { codeblock } from "./components/ui/codeblock";
+export { note } from "./components/ui/note";
 export { panel } from "./components/ui/panel";
 export { progress } from "./components/ui/progress";
 export { spinner } from "./components/ui/spinner";
