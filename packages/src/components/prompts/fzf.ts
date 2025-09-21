@@ -23,7 +23,7 @@ export function fzf<T>(options: FzfOptions<T>): Promise<PromptResult<T>> {
 		let filteredOptions = [...options.options];
 		let searchTerm = "";
 		let previousLinesCount = 0;
-		
+
 		// Find initial value index if provided
 		if (options.initialValue !== undefined) {
 			const foundIndex = options.options.findIndex(
@@ -39,9 +39,9 @@ export function fzf<T>(options: FzfOptions<T>): Promise<PromptResult<T>> {
 		// Simple fuzzy filtering function
 		const filterOptions = (term: string) => {
 			if (!term) return [...options.options];
-			
-			return options.options.filter(option => 
-				option.label.toLowerCase().includes(term.toLowerCase())
+
+			return options.options.filter((option) =>
+				option.label.toLowerCase().includes(term.toLowerCase()),
 			);
 		};
 
@@ -60,10 +60,10 @@ export function fzf<T>(options: FzfOptions<T>): Promise<PromptResult<T>> {
 			clearPreviousLines();
 
 			const message = formatMessage(options.message);
-			const placeholder = options.placeholder 
+			const placeholder = options.placeholder
 				? colors.dim(`(${options.placeholder})`)
 				: "";
-				
+
 			write(`${message} ${searchTerm}${placeholder}\n`);
 			previousLinesCount = 1;
 
@@ -84,13 +84,18 @@ export function fzf<T>(options: FzfOptions<T>): Promise<PromptResult<T>> {
 					write("\n");
 				}
 			}
-			
+
 			previousLinesCount += displayOptions.length;
-			
+
 			// Show how many results
-			if (filteredOptions.length !== options.options.length || filteredOptions.length > 10) {
+			if (
+				filteredOptions.length !== options.options.length ||
+				filteredOptions.length > 10
+			) {
 				const displayCount = Math.min(filteredOptions.length, 10);
-				write(`\n${colors.dim(`${displayCount}/${filteredOptions.length} results`)}`);
+				write(
+					`\n${colors.dim(`${displayCount}/${filteredOptions.length} results`)}`,
+				);
 				previousLinesCount += 1;
 			}
 		};
@@ -102,7 +107,7 @@ export function fzf<T>(options: FzfOptions<T>): Promise<PromptResult<T>> {
 
 		const submit = () => {
 			if (filteredOptions.length === 0) return;
-			
+
 			const selectedOption = filteredOptions[selectedIndex];
 			cleanup();
 
@@ -149,14 +154,18 @@ export function fzf<T>(options: FzfOptions<T>): Promise<PromptResult<T>> {
 				case "up":
 					if (filteredOptions.length > 0) {
 						selectedIndex =
-							selectedIndex > 0 ? selectedIndex - 1 : filteredOptions.length - 1;
+							selectedIndex > 0
+								? selectedIndex - 1
+								: filteredOptions.length - 1;
 						render();
 					}
 					break;
 				case "down":
 					if (filteredOptions.length > 0) {
 						selectedIndex =
-							selectedIndex < filteredOptions.length - 1 ? selectedIndex + 1 : 0;
+							selectedIndex < filteredOptions.length - 1
+								? selectedIndex + 1
+								: 0;
 						render();
 					}
 					break;

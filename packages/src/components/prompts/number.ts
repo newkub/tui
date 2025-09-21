@@ -1,3 +1,4 @@
+import type { PromptResult } from "../../types";
 import { CANCEL_SYMBOL } from "../../types";
 import { colors, formatError, formatMessage } from "../core/colors";
 import {
@@ -8,7 +9,6 @@ import {
 	write,
 	writeLine,
 } from "../core/input";
-import type { PromptResult } from "../../types";
 import type { NumberOptions } from "../core/types";
 
 export function number(options: NumberOptions): Promise<PromptResult<number>> {

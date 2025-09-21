@@ -1,6 +1,6 @@
-import type { ProgressOptions } from "../core/types";
 import { colors } from "../core/colors";
 import { writeLine } from "../core/input";
+import type { ProgressOptions } from "../core/types";
 import { clamp } from "../core/utils";
 
 export interface ProgressBar {

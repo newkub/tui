@@ -1,6 +1,6 @@
-import type { TableOptions } from "../core/types";
 import { colors } from "../core/colors";
 import { writeLine } from "../core/input";
+import type { TableOptions } from "../core/types";
 import { padEnd, truncate } from "../core/utils";
 
 export function table(options: TableOptions): void {

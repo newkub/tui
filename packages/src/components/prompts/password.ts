@@ -1,9 +1,11 @@
+import type { PromptResult } from "../../types";
+import { CANCEL_SYMBOL } from "../../types";
 import { formatError, formatMessage } from "../core/colors";
 import type { PasswordOptions } from "../core/types";
-import { CANCEL_SYMBOL } from "../../types";
-import type { PromptResult } from "../../types";
 
-export async function password(options: PasswordOptions): Promise<PromptResult<string>> {
+export async function password(
+	options: PasswordOptions,
+): Promise<PromptResult<string>> {
 	const { message, placeholder, mask = "*", validate, initialValue } = options;
 
 	console.log(formatMessage(message));
