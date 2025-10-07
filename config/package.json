@@ -2,9 +2,11 @@
   "name": "config",
   "version": "1.0.0",
   "type": "module",
-  "files": ["biome.jsonc"],
+  "files": [
+    "biome.jsonc"
+  ],
   "main": "biome.jsonc",
   "devDependencies": {
-    "@biomejs/biome": "^2.2.4"
+    "@biomejs/biome": "^2.2.5"
   }
 }
