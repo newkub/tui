@@ -51,7 +51,7 @@ export { slider } from "./components/prompts/slider";
 export { text } from "./components/prompts/text";
 export { toggle } from "./components/prompts/toggle";
 export { banner } from "./components/ui/banner";
-export { Chat, chat, chatDemo } from "./components/ui/chat";
+export { chat } from "./components/ui/chat";
 export { codeblock } from "./components/ui/codeblock";
 // UI Components
 export { intro, outro } from "./components/ui/intro";
