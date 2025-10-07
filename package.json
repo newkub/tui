@@ -5,7 +5,7 @@
   "packageManager": "bun@1.2.23",
   "workspaces": [
     "config",
-    "packages",
+    "packages/*",
     "examples"
   ],
   "scripts": {
