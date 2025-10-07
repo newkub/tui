@@ -162,10 +162,12 @@ export const generateExamplesSection = (context: CommandContext): HelpSection =>
     // Example 2: With arguments if available
     if (context.arguments.length > 0) {
       const firstArg = context.arguments[0];
-      const exampleValue = firstArg.name === 'file' ? 'input.txt' : 'value';
-      const desc2 = `\n${INDENT}${colorize('–', 'dim')} With argument`;
-      const cmd2 = `\n${OPTION_INDENT}${colorize('$', 'dim')} ${context.name} ${exampleValue}`;
-      examples.push(desc2 + cmd2);
+      if (firstArg) {
+        const exampleValue = firstArg.name === 'file' ? 'input.txt' : 'value';
+        const desc2 = `\n${INDENT}${colorize('–', 'dim')} With argument`;
+        const cmd2 = `\n${OPTION_INDENT}${colorize('$', 'dim')} ${context.name} ${exampleValue}`;
+        examples.push(desc2 + cmd2);
+      }
     }
 
     // Example 3: With options if available
