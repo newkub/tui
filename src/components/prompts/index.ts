@@ -5,7 +5,7 @@ export { number } from "./number";
 export { password } from "./password";
 export { select } from "./select";
 export { text } from "./text";
-export { AutocompletePrompt as autocomplete } from "./autocomplete";
+export { AutocompletePrompt } from "./autocomplete";
 
 export type {
   PromptOptions,

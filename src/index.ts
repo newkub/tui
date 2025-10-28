@@ -4,7 +4,7 @@ import {
 	number,
 	password,
 	select,
-	promptText as text,
+	text,
 } from "./components";
 import pc from "picocolors";
 
