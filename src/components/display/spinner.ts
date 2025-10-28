@@ -1,13 +1,27 @@
 import pc from "picocolors";
+import type { SpinnerProps } from "@/types";
 
 export function Spinner({
-	size = 1,
-	color = "cyan",
-}: {
-	size?: number;
-	color?: string;
-}) {
-	const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
-	const frame = frames[Math.floor(Date.now() / 100) % frames.length];
-	return pc[color]?.(frame.repeat(size)) || frame.repeat(size);
+  size = "md",
+  color = "cyan",
+  speed = "normal",
+}: SpinnerProps) {
+  const sizeMap = {
+    sm: 1,
+    md: 2,
+    lg: 3,
+  };
+  
+  const speedMap = {
+    slow: 200,
+    normal: 100,
+    fast: 50,
+  };
+  
+  const actualSize = typeof size === 'string' ? sizeMap[size] : size;
+  const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+  const interval = speedMap[speed];
+  const frame = frames[Math.floor(Date.now() / interval) % frames.length];
+  
+  return pc[color]?.(frame.repeat(actualSize)) || frame.repeat(actualSize);
 }

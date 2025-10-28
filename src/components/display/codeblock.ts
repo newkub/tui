@@ -1,11 +1,12 @@
 import pc from "picocolors";
 import { codeToANSI } from '@shikijs/cli';
-import type { CodeBlockProps } from '../../types';
+import type { CodeBlockProps } from "@/types";
 
 export async function CodeBlock({
   code,
   language = "",
   showLineNumbers = false,
+  highlightLines = [],
 }: CodeBlockProps) {
   const lines = code.split('\n');
   const maxLength = Math.max(...lines.map(line => line.length));
@@ -21,8 +22,11 @@ export async function CodeBlock({
     border,
     ...highlighted.split('\n').map((line, i) => {
       const lineNum = showLineNumbers ? pc.dim(`${i + 1} │ `) : '';
-      return pc.gray('│ ') + lineNum + line + ' '.repeat(maxLength - line.length) + pc.gray(' │');
+      const isHighlighted = highlightLines.includes(i + 1);
+      const lineContent = isHighlighted ? pc.bgBlue(line) : line;
+      return pc.gray('│ ') + lineNum + lineContent + ' '.repeat(maxLength - line.length) + pc.gray(' │');
     }),
     bottomBorder,
+    pc.dim('(Press Ctrl+C to copy)'),
   ].join('\n');
 }

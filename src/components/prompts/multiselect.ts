@@ -1,15 +1,18 @@
-import type { PromptOptions } from "./base";
+import { multiselect as clackMultiselect } from "@clack/prompts";
+import type { SelectOptions } from "@/components/prompts/base";
 
-export function multiselect(
-  options: PromptOptions & { choices: string[] },
-): Promise<string[]> {
-  return new Promise((resolve) => {
-    // ตัวอย่างการทำงานพื้นฐาน
-    // ในทางปฏิบัติควรมี UI สำหรับรับ input
-    console.log(`${options.message}`);
-    options.choices.forEach((choice, index) => {
-      console.log(`${index + 1}. ${choice}`);
-    });
-    resolve([]); // คืนค่า array ว่างเป็นค่าเริ่มต้น
+export async function multiselect<T>(
+  options: SelectOptions<T> & { maxSelected?: number }
+): Promise<T[]> {
+  const result = await clackMultiselect({
+    message: options.message,
+    options: options.options.map(opt => ({
+      value: opt.value,
+      label: opt.label,
+    })),
+    required: false,
+    maxSelected: options.maxSelected,
   });
+
+  return result as T[];
 }

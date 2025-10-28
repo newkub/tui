@@ -1,22 +1,5 @@
 // Re-export display components
-export {
-  text,
-  codeblock,
-  box,
-  progress,
-  spinner,
-  table,
-  divider,
-  status
-} from "./display";
+export * from "@/components/display";
 
 // Re-export prompt components
-export {
-  confirm,
-  multiselect,
-  number,
-  password,
-  select,
-  text as promptText,
-  autocomplete
-} from "./prompts";
+export * from "@/components/prompts";

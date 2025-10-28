@@ -1,11 +1,16 @@
 import { text } from "@clack/prompts";
-import type { NumberOptions } from "./base";
+import type { NumberOptions } from "@/components/prompts/base";
+import pc from "picocolors";
 
 export async function number(
   options: NumberOptions,
 ): Promise<number> {
+  const rangeDisplay = options.displayRange 
+    ? pc.dim(` (${options.min ?? '-'} to ${options.max ?? '-'})`)
+    : '';
+    
   const result = await text({
-    message: options.message,
+    message: `${options.message}${rangeDisplay}`,
     placeholder: "Enter a number",
     validate: (value) => {
       const num = Number(value);

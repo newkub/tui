@@ -5,7 +5,7 @@ import {
 	password,
 	select,
 	text,
-} from "./components";
+} from "@/components";
 import pc from "picocolors";
 
 export async function main() {

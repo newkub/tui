@@ -1,12 +1,12 @@
 // Display Components
-export { Text as text } from "./text";
-export { CodeBlock as codeblock } from "./codeblock";
-export { Box as box } from "./box";
-export { ProgressBar as progress } from "./progress";
-export { Spinner as spinner } from "./spinner";
-export { Table as table } from "./table";
-export { Divider as divider } from "./divider";
-export { Status as status } from "./status";
+export { Text } from './text';
+export { CodeBlock } from './codeblock';
+export { Box } from './box';
+export { ProgressBar } from './progress';
+export { Spinner } from './spinner';
+export { Table } from './table';
+export { Divider } from './divider';
+export { Status } from './status';
 
 export type {
   BoxProps,
@@ -15,5 +15,6 @@ export type {
   SpinnerProps,
   TableProps,
   DividerProps,
-  StatusProps
-} from "./base";
+  StatusProps,
+  TextProps
+} from './base';

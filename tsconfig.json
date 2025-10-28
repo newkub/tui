@@ -54,10 +54,7 @@
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./src/*"],
-			"@components/*": ["./src/services/cli-ui/components/*"],
-			"@utils/*": ["./src/utils/*"],
-			"@types/*": ["./src/types/*"],
-			"@config/*": ["./src/config/*"]
+			"@components/*": ["./src/services/cli-ui/components/*"]
 		}
 	},
 
