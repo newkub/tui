@@ -1,5 +1,5 @@
 import pc from "picocolors";
-import { defaultConfig } from "@/config";
+import { displayConfig } from "@/config/display.config";
 
 type Column<T> = {
   name: string;
@@ -15,8 +15,8 @@ export function Table<T>({
   columns,
   data,
   pagination,
-  headerColor = defaultConfig.table.headerColor,
-  borderColor = defaultConfig.table.borderColor,
+  headerColor = displayConfig.table.headerColor,
+  borderColor = displayConfig.table.borderColor,
 }: {
   columns: Column<T>[];
   data: T[];

@@ -1,10 +1,10 @@
 import pc from "picocolors";
-import { defaultConfig } from "@/config";
+import { displayConfig } from "@/config/display.config";
 
 export function Spinner({
-  size = defaultConfig.spinner.size,
-  color = defaultConfig.spinner.color,
-  speed = defaultConfig.spinner.speed,
+  size = displayConfig.spinner.size,
+  color = displayConfig.spinner.color,
+  speed = displayConfig.spinner.speed,
 }: {
   size?: "sm" | "md" | "lg" | number;
   color?: string;

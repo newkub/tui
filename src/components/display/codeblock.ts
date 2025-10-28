@@ -1,12 +1,12 @@
 import pc from "picocolors";
 import { codeToANSI } from '@shikijs/cli';
-import { defaultConfig } from "@/config";
+import { displayConfig } from "@/config/display.config";
 
 export async function CodeBlock({
   code,
   language = "",
-  showLineNumbers = defaultConfig.codeblock.showLineNumbers,
-  highlightLines = defaultConfig.codeblock.highlightLines,
+  showLineNumbers = displayConfig.codeblock.showLineNumbers,
+  highlightLines = displayConfig.codeblock.highlightLines,
 }: {
   code: string;
   language?: string;

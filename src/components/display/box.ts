@@ -1,12 +1,12 @@
-import { defaultConfig } from '@/config';
+import { displayConfig } from "@/config/display.config";
 import boxen from 'boxen';
 
 export const Box = ({
   title,
-  border = defaultConfig.box.border,
-  padding = defaultConfig.box.padding,
+  border = displayConfig.box.border,
+  padding = displayConfig.box.padding,
   children = '',
-  width = defaultConfig.box.width,
+  width = displayConfig.box.width,
 }: {
   title?: string;
   border?: boolean | 'single' | 'double' | 'round';

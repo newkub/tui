@@ -1,5 +1,6 @@
 // Re-export display components
-export * from "@/components/display";
+export * from "./display";
 
-// Re-export prompt components
-export * from "@/components/prompts";
+// Re-export input components
+export * from "./input";
+

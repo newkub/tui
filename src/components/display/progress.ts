@@ -1,14 +1,14 @@
 import pc from "picocolors";
-import { defaultConfig } from "@/config";
+import { displayConfig } from "@/config/display.config";
 
 export function ProgressBar({
   value,
   max = 100,
-  width = defaultConfig.progress.width,
-  color = defaultConfig.progress.color,
-  showPercentage = defaultConfig.progress.showPercentage,
-  labelPosition = defaultConfig.progress.labelPosition,
-  animated = defaultConfig.progress.animated,
+  width = displayConfig.progress.width,
+  color = displayConfig.progress.color,
+  showPercentage = displayConfig.progress.showPercentage,
+  labelPosition = displayConfig.progress.labelPosition,
+  animated = displayConfig.progress.animated,
 }: {
   value: number;
   max?: number;

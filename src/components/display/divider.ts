@@ -1,11 +1,11 @@
 import pc from "picocolors";
-import { defaultConfig } from "@/config";
+import { displayConfig } from "@/config/display.config";
 
 export function Divider({
-  type = defaultConfig.divider.type,
-  length = defaultConfig.divider.length,
-  color = defaultConfig.divider.color,
-  character = defaultConfig.divider.character,
+  type = displayConfig.divider.type,
+  length = displayConfig.divider.length,
+  color = displayConfig.divider.color,
+  character = displayConfig.divider.character,
 }: {
   type?: "horizontal" | "vertical";
   length?: number;

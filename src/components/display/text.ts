@@ -1,14 +1,14 @@
 import pc from "picocolors";
-import { defaultConfig } from "@/config";
+import { displayConfig } from "@/config/display.config";
 
 export function Text({
   children,
-  color = defaultConfig.text.color,
-  bold = defaultConfig.text.bold,
-  italic = defaultConfig.text.italic,
-  underline = defaultConfig.text.underline,
-  align = defaultConfig.text.align,
-  wrap = defaultConfig.text.wrap,
+  color = displayConfig.text.color,
+  bold = displayConfig.text.bold,
+  italic = displayConfig.text.italic,
+  underline = displayConfig.text.underline,
+  align = displayConfig.text.align,
+  wrap = displayConfig.text.wrap,
 }: {
   children: string;
   color?: string;
