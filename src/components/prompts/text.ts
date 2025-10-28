@@ -1,8 +1,12 @@
 import { text as clackText } from "@clack/prompts";
-import type { PromptOptions } from "@/components/prompts/base";
 import pc from "picocolors";
+import { defaultConfig } from "@/config";
 
-export async function text(options: PromptOptions): Promise<string> {
+export async function text(options: {
+  message: string;
+  placeholder?: string;
+  validate?: (value: string) => string | void;
+}): Promise<string> {
   const result = await clackText({
     message: options.message,
     placeholder: options.placeholder,

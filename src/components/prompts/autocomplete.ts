@@ -1,12 +1,13 @@
 import pc from "picocolors";
-import { createPrompt } from "@/components/prompts/base";
-import type { PromptOptions } from "@/types";
+import { createPrompt } from "./base";
+import { defaultConfig } from "@/config";
 
 export async function AutocompletePrompt({
   message,
   choices,
-  initialValue = "",
-}: PromptOptions & {
+  initialValue = defaultConfig.autocomplete.initialValue,
+}: {
+  message: string;
   choices: string[];
   initialValue?: string;
 }) {

@@ -1,11 +1,15 @@
 import pc from "picocolors";
-import type { SpinnerProps } from "@/types";
+import { defaultConfig } from "@/config";
 
 export function Spinner({
-  size = "md",
-  color = "cyan",
-  speed = "normal",
-}: SpinnerProps) {
+  size = defaultConfig.spinner.size,
+  color = defaultConfig.spinner.color,
+  speed = defaultConfig.spinner.speed,
+}: {
+  size?: "sm" | "md" | "lg" | number;
+  color?: string;
+  speed?: "slow" | "normal" | "fast";
+}) {
   const sizeMap = {
     sm: 1,
     md: 2,

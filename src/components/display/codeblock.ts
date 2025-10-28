@@ -1,13 +1,18 @@
 import pc from "picocolors";
 import { codeToANSI } from '@shikijs/cli';
-import type { CodeBlockProps } from "@/types";
+import { defaultConfig } from "@/config";
 
 export async function CodeBlock({
   code,
   language = "",
-  showLineNumbers = false,
-  highlightLines = [],
-}: CodeBlockProps) {
+  showLineNumbers = defaultConfig.codeblock.showLineNumbers,
+  highlightLines = defaultConfig.codeblock.highlightLines,
+}: {
+  code: string;
+  language?: string;
+  showLineNumbers?: boolean;
+  highlightLines?: number[];
+}) {
   const lines = code.split('\n');
   const maxLength = Math.max(...lines.map(line => line.length));
   

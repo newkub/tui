@@ -17,4 +17,4 @@ export type {
   DividerProps,
   StatusProps,
   TextProps
-} from './base';
+} from '../types';

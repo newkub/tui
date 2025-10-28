@@ -1,9 +1,14 @@
 import { text } from "@clack/prompts";
-import type { NumberOptions } from "@/components/prompts/base";
 import pc from "picocolors";
+import { defaultConfig } from "@/config";
 
 export async function number(
-  options: NumberOptions,
+  options: {
+    message: string;
+    min?: number;
+    max?: number;
+    displayRange?: boolean;
+  },
 ): Promise<number> {
   const rangeDisplay = options.displayRange 
     ? pc.dim(` (${options.min ?? '-'} to ${options.max ?? '-'})`)

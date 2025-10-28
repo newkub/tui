@@ -5,6 +5,9 @@ export interface BoxProps {
   padding?: number | { top: number; right: number; bottom: number; left: number };
   children?: string;
   width?: number;
+  defaultBorder?: boolean;
+  defaultPadding?: number;
+  defaultWidth?: number;
 }
 
 export interface CodeBlockProps {
@@ -26,21 +29,6 @@ export interface SpinnerProps {
   size?: 'sm' | 'md' | 'lg' | number;
   color?: string;
   speed?: 'slow' | 'normal' | 'fast';
-}
-
-export interface TableProps<T> {
-  data: T[];
-  columns: {
-    key: string;
-    header: string;
-    width?: number;
-    render?: (item: T) => React.ReactNode;
-    sortable?: boolean;
-  }[];
-  pagination?: {
-    pageSize: number;
-    currentPage: number;
-  };
 }
 
 export interface DividerProps {

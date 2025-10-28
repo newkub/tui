@@ -1,8 +1,13 @@
 import { password as clackPassword } from "@clack/prompts";
-import type { PasswordOptions } from "@/components/prompts/base";
 import pc from "picocolors";
+import { defaultConfig } from "@/config";
 
-export async function password(options: PasswordOptions): Promise<string> {
+export async function password(options: {
+  message: string;
+  minLength?: number;
+  confirm?: boolean;
+  strengthMeter?: boolean;
+}): Promise<string> {
   let password = '';
   let confirmPassword = '';
   

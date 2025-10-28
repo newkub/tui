@@ -1,31 +1,31 @@
-import type { BoxProps, CodeBlockProps, ProgressProps, SpinnerProps, TableProps, DividerProps, StatusProps, TextProps } from "@/types";
+import pc from "picocolors";
 
 export const defaultConfig = {
   box: {
     border: true,
     padding: 1,
     width: 50,
-  } as BoxProps,
+  },
   codeblock: {
     showLineNumbers: false,
     highlightLines: [],
-  } as CodeBlockProps,
+  },
   progress: {
     width: 20,
     color: "cyan",
     showPercentage: true,
     labelPosition: "right",
     animated: false,
-  } as ProgressProps,
+  },
   spinner: {
     size: "md",
     color: "cyan",
     speed: "normal",
-  } as SpinnerProps,
+  },
   table: {
     headerColor: "cyan",
     borderColor: "gray",
-  } as TableProps,
+  },
   text: {
     color: "white",
     bold: false,
@@ -33,5 +33,50 @@ export const defaultConfig = {
     underline: false,
     align: "left",
     wrap: true,
-  } as TextProps,
+  },
+  confirm: {
+    initialValue: true,
+    confirmText: 'Confirm',
+    cancelText: 'Cancel'
+  },
+  autocomplete: {
+    initialValue: "",
+    placeholder: "Type to filter options"
+  }
+} as {
+  box: {
+    border: boolean;
+    padding: number;
+    width: number;
+  };
+  codeblock: {
+    showLineNumbers: boolean;
+    highlightLines: number[];
+  };
+  progress: {
+    width: number;
+    color: string;
+    showPercentage: boolean;
+    labelPosition: string;
+    animated: boolean;
+  };
+  spinner: {
+    size: string;
+    color: string;
+    speed: string;
+  };
+  table: {
+    headerColor: string;
+    borderColor: string;
+  };
+  text: {
+    color: string;
+    bold: boolean;
+    italic: boolean;
+    underline: boolean;
+    align: string;
+    wrap: boolean;
+  };
+  confirm: ConfirmPromptOptions;
+  autocomplete: AutocompleteOptions;
 };

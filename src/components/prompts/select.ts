@@ -1,14 +1,18 @@
 import { select as clackSelect } from "@clack/prompts";
-import type { SelectOptions } from "@/components/prompts/base";
+import { defaultConfig } from "@/config";
 
-export async function select<T>(options: SelectOptions<T>): Promise<T> {
+export async function select<T>(options: {
+  message: string;
+  options: { value: T; label: string; group?: string }[];
+  initialValue?: T;
+}): Promise<T> {
   const result = await clackSelect({
     message: options.message,
     options: options.options.map(opt => ({
       value: opt.value,
       label: opt.group ? `${opt.group} > ${opt.label}` : opt.label,
     })),
-    initialValue: options.options[0]?.value,
+    initialValue: options.initialValue,
   });
 
   return result as T;

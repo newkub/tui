@@ -1,5 +1,5 @@
+import { defaultConfig } from "@/config";
 import pc from "picocolors";
-import type { StatusProps } from "@/types";
 
 type StatusType = 'success' | 'error' | 'warning' | 'info' | 'loading' | 'question' | 'star';
 
@@ -26,7 +26,10 @@ const statusColors = {
 export function Status({
   type,
   message,
-}: StatusProps) {
+}: {
+  type: StatusType;
+  message: string;
+}) {
   const icon = statusIcons[type];
   const color = statusColors[type];
   

@@ -1,15 +1,23 @@
 import pc from "picocolors";
-import type { TextProps } from "@/types";
+import { defaultConfig } from "@/config";
 
 export function Text({
   children,
-  color = "white",
-  bold = false,
-  italic = false,
-  underline = false,
-  align = 'left',
-  wrap = true,
-}: TextProps) {
+  color = defaultConfig.text.color,
+  bold = defaultConfig.text.bold,
+  italic = defaultConfig.text.italic,
+  underline = defaultConfig.text.underline,
+  align = defaultConfig.text.align,
+  wrap = defaultConfig.text.wrap,
+}: {
+  children: string;
+  color?: string;
+  bold?: boolean;
+  italic?: boolean;
+  underline?: boolean;
+  align?: 'left' | 'center' | 'right';
+  wrap?: boolean;
+}) {
   let text = pc[color]?.(children) || children;
   
   if (bold) text = pc.bold(text);

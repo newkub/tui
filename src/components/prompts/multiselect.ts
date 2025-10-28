@@ -1,8 +1,12 @@
 import { multiselect as clackMultiselect } from "@clack/prompts";
-import type { SelectOptions } from "@/components/prompts/base";
+import { defaultConfig } from "@/config";
 
 export async function multiselect<T>(
-  options: SelectOptions<T> & { maxSelected?: number }
+  options: {
+    message: string;
+    options: { value: T; label: string; group?: string }[];
+    maxSelected?: number;
+  }
 ): Promise<T[]> {
   const result = await clackMultiselect({
     message: options.message,

@@ -1,5 +1,5 @@
 import pc from "picocolors";
-import type { TableProps } from "@/types";
+import { defaultConfig } from "@/config";
 
 type Column<T> = {
   name: string;
@@ -15,9 +15,18 @@ export function Table<T>({
   columns,
   data,
   pagination,
-  headerColor = "cyan",
-  borderColor = "gray",
-}: TableProps<T>) {
+  headerColor = defaultConfig.table.headerColor,
+  borderColor = defaultConfig.table.borderColor,
+}: {
+  columns: Column<T>[];
+  data: T[];
+  pagination?: {
+    pageSize: number;
+    currentPage: number;
+  };
+  headerColor?: string;
+  borderColor?: string;
+}) {
   // Handle pagination
   const pageData = pagination 
     ? data.slice(
@@ -27,17 +36,17 @@ export function Table<T>({
     : data;
 
   // สร้างเส้นขอบ
-  const border = pc[borderColor](
+  const border = borderColor(
     '┌' + columns.map(c => '─'.repeat(c.width + 2)).join('┬') + '┐'
   );
   
   // สร้าง header
   const header = columns.map(c => 
-    pc[headerColor](c.name.padEnd(c.width).substring(0, c.width))
-  ).join(pc[borderColor](' │ '));
+    headerColor(c.name.padEnd(c.width).substring(0, c.width))
+  ).join(borderColor(' │ '));
   
   // สร้างเส้นคั่น header
-  const headerBorder = pc[borderColor](
+  const headerBorder = borderColor(
     '├' + columns.map(c => '─'.repeat(c.width + 2)).join('┼') + '┤'
   );
   
@@ -46,24 +55,24 @@ export function Table<T>({
     return columns.map(c => {
       const value = c.render ? c.render(row) : row[c.name] || '';
       return value.padEnd(c.width).substring(0, c.width);
-    }).join(pc[borderColor](' │ '));
+    }).join(borderColor(' │ '));
   });
   
   // สร้างเส้นขอบล่าง
-  const bottomBorder = pc[borderColor](
+  const bottomBorder = borderColor(
     '└' + columns.map(c => '─'.repeat(c.width + 2)).join('┴') + '┘'
   );
   
   // เพิ่ม pagination info ถ้ามี
   const paginationInfo = pagination 
-    ? pc.dim(`Page ${pagination.currentPage} of ${Math.ceil(data.length / pagination.pageSize)}`)
+    ? borderColor.dim(`Page ${pagination.currentPage} of ${Math.ceil(data.length / pagination.pageSize)}`)
     : '';
 
   return [
     border,
-    pc[borderColor]('│ ') + header + pc[borderColor](' │'),
+    borderColor('│ ') + header + borderColor(' │'),
     headerBorder,
-    ...rows.map(row => pc[borderColor]('│ ') + row + pc[borderColor](' │')),
+    ...rows.map(row => borderColor('│ ') + row + borderColor(' │')),
     bottomBorder,
     paginationInfo
   ].filter(Boolean).join('\n');

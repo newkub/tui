@@ -1,15 +1,23 @@
 import pc from "picocolors";
-import type { ProgressProps } from "@/types";
+import { defaultConfig } from "@/config";
 
 export function ProgressBar({
   value,
   max = 100,
-  width = 20,
-  color = "cyan",
-  showPercentage = true,
-  labelPosition = 'right',
-  animated = false,
-}: ProgressProps) {
+  width = defaultConfig.progress.width,
+  color = defaultConfig.progress.color,
+  showPercentage = defaultConfig.progress.showPercentage,
+  labelPosition = defaultConfig.progress.labelPosition,
+  animated = defaultConfig.progress.animated,
+}: {
+  value: number;
+  max?: number;
+  width?: number;
+  color?: string;
+  showPercentage?: boolean;
+  labelPosition?: 'left' | 'right' | 'top' | 'bottom';
+  animated?: boolean;
+}) {
   const percentage = Math.min(100, Math.max(0, (value / max) * 100));
   const filled = Math.floor((percentage / 100) * width);
   const empty = width - filled;

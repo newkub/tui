@@ -1,13 +1,19 @@
+import { defaultConfig } from '@/config';
 import boxen from 'boxen';
-import type { BoxProps } from "@/types";
 
 export const Box = ({
   title,
-  border = true,
-  padding = 1,
+  border = defaultConfig.box.border,
+  padding = defaultConfig.box.padding,
   children = '',
-  width = 50,
-}: BoxProps) => {
+  width = defaultConfig.box.width,
+}: {
+  title?: string;
+  border?: boolean | 'single' | 'double' | 'round';
+  padding?: number | { top: number; right: number; bottom: number; left: number };
+  children?: string;
+  width?: number;
+}) => {
   const content = children;
   const boxContent = title ? `${title}\n\n${content}` : content;
   

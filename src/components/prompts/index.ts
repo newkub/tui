@@ -1,15 +1,15 @@
 // Prompt Components
-export { confirm } from "@/components/prompts/confirm";
-export { multiselect } from "@/components/prompts/multiselect";
-export { number } from "@/components/prompts/number";
-export { password } from "@/components/prompts/password";
-export { select } from "@/components/prompts/select";
-export { text } from "@/components/prompts/text";
-export { AutocompletePrompt } from "@/components/prompts/autocomplete";
+export { confirm } from "./confirm";
+export { multiselect } from "./multiselect";
+export { number } from "./number";
+export { password } from "./password";
+export { select } from "./select";
+export { text } from "./text";
+export { AutocompletePrompt } from "./autocomplete";
 
 export type {
   PromptOptions,
   SelectOptions,
   PasswordOptions,
   NumberOptions
-} from "@/components/prompts/base";
+} from "./types";
